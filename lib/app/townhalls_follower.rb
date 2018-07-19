@@ -1,15 +1,16 @@
 require 'twitter'
 require 'dotenv'
 require 'pry'
-Dotenv.load
+Dotenv.load('.env')
 
-$arr = [{"ville" => "Grenoble", "email" => "nicolas.bertin0@gmail.com", "departement" => "Isère"},
-{"ville" => "Meylan", "email" => "ludovic.bourgoin@gmail.com", "departement" => "Isère"},
- {"ville" => "Echirolles", "email" => "ludovic.bourgoin@gmail.com", "departement" => "Isère"}]
+# @info = [{"ville" => "Grenoble", "email" => "nicolas.bertin0@gmail.com", "departement" => "Isère"},
+# {"ville" => "Meylan", "email" => "ludovic.bourgoin@gmail.com", "departement" => "Isère"},
+#  {"ville" => "Echirolles", "email" => "ludovic.bourgoin@gmail.com", "departement" => "Isère"}]
 
 class Follower
 
-  def initialize
+  def initialize(info)
+    @info = info
     @client = Twitter::REST::Client.new do |config|
      config.consumer_key        = ENV["TWITTER_API_KEY"]
      config.consumer_secret     = ENV["TWITTER_API_SECRET_KEY"]
@@ -40,7 +41,7 @@ class Follower
   end
 
   def add_handles_to_json(arr)
-    $arr.each_with_index do |h, i|
+    @info.each_with_index do |h, i|
       h['twitter'] = @handles[i]
     end
     File.open("/home/nico/THP/ultimate_townhall/db/townhall.json", "w") do |f|
@@ -54,8 +55,6 @@ class Follower
   def perform
     get_all_cities
     find_twitter_handle
-    add_handles_to_json($arr)
+    add_handles_to_json(@info)
   end
 end
-
-Follower.new.perform

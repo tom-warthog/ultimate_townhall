@@ -6,8 +6,8 @@ require_relative 'lib/app/townhalls_scrapper.rb'
 
 
 
-arr = [{"ville" => "Grenoble", "email" => "nicolas.bertin0@gmail.com", "departement" => "Isère"},
-{"ville" => "Meylan", "email" => "ludovic.bourgoin@gmail.com", "departement" => "Isère"}]
+# arr = [{"ville" => "Grenoble", "email" => "nicolas.bertin0@gmail.com", "departement" => "Isère"},
+# {"ville" => "Meylan", "email" => "ludovic.bourgoin@gmail.com", "departement" => "Isère"}]
 
 input = 1
 while input.between?(1, 3) do
@@ -16,12 +16,11 @@ while input.between?(1, 3) do
 
   case input
   when 1
-    Scrapper.new.perform
+    arr = Scrapper.new.perform
   when 2
     Mailer.new(arr).perform
   when 3
-    Follower.new.perform
+    Follower.new(arr).perform
   end
-
   Done.new(input).perform
 end

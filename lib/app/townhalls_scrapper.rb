@@ -8,7 +8,7 @@ class Scrapper
   def initialize
     @info = []
     @root = "http://annuaire-des-mairies.com"
-    @departements = ["haute-corse", "pyrenees-orientales", "haute-vienne"]
+    @departements = ["haute-corse"]
   end
 
   def get_email(doc)
@@ -23,7 +23,7 @@ class Scrapper
     Nokogiri::HTML(open(page_url)).xpath('//td/p/a').map do |node|
       url = node.attribute('href').value.sub(/^[.]/, @root)
       doc = Nokogiri::HTML(open(url))
-      @info << { 'name' => node.text, 'email' => get_email(doc), 'departement' => get_department(doc) }
+      @info << { 'ville' => node.text, 'email' => get_email(doc), 'departement' => get_department(doc) }
     end
   end
 
@@ -41,5 +41,3 @@ class Scrapper
   end
 
 end
-
-Scrapper.new.perform
