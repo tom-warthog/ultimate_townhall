@@ -1,6 +1,8 @@
 require_relative 'lib/views/index.rb'
 require_relative 'lib/views/done.rb'
 require_relative 'lib/app/townhalls_mailer.rb'
+require_relative 'lib/app/townhalls_follower.rb'
+require_relative 'lib/app/townhalls_scrapper.rb'
 
 
 

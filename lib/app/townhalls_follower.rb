@@ -1,12 +1,13 @@
 require 'twitter'
 require 'dotenv'
+require 'pry'
 Dotenv.load
 
 $arr = [{"ville" => "Grenoble", "email" => "nicolas.bertin0@gmail.com", "departement" => "Isère"},
 {"ville" => "Meylan", "email" => "ludovic.bourgoin@gmail.com", "departement" => "Isère"},
  {"ville" => "Echirolles", "email" => "ludovic.bourgoin@gmail.com", "departement" => "Isère"}]
 
-class TownhallFollower
+class Follower
 
   def initialize
     @client = Twitter::REST::Client.new do |config|
@@ -20,10 +21,12 @@ class TownhallFollower
   def get_all_cities
     json = File.read('..//ultimate_townhall/db/townhall.json') #Update path ...
     @cities = []
-    JSON.parse(json).each do |h|
-      @cities << h["ville"]
+    if json != ""
+      JSON.parse(json).each do |h|
+        @cities << h["ville"]
+      end
     end
-    p @cities
+    @cities
   end
 
   def find_twitter_handle
@@ -33,7 +36,7 @@ class TownhallFollower
       @client.follow(user)
       @handles << user.name
     end
-    p @handles
+    @handles
   end
 
   def add_handles_to_json(arr)
@@ -55,4 +58,4 @@ class TownhallFollower
   end
 end
 
-TownhallFollower.new.perform
+Follower.new.perform
