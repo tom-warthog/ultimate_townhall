@@ -8,7 +8,7 @@ arr = [{"ville" => "Grenoble", "email" => "nicolas.bertin0@gmail.com", "departem
 {"ville" => "Meylan", "email" => "ludovic.bourgoin@gmail.com", "departement" => "Isère"}]
 
 input = 1
-while input.between?(1,3) do
+while input.between?(1, 3) do
 
   input = Index.new.perform
 
