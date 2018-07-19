@@ -1,8 +1,7 @@
 require 'gmail'
-require 'mail'
 
-arr = [{"ville" => "Grenoble", "email" => "nicolas.bertin0@gmail.com", "departement" => "Isère"},
-{"ville" => "Meylan", "email" => "ludovic.bourgoin@gmail.com", "departement" => "Isère"}]
+
+
 
 
 class Mailer
@@ -24,6 +23,8 @@ class Mailer
     end
     gmail.logout
   end
-end
 
-emails = Mailer.new(arr).send_emails
+  def perform
+    send_emails
+  end
+end
