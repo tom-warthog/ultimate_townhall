@@ -6,7 +6,7 @@ class Mailer
   end
 
   def send_emails
-    gmail = Gmail.connect("bonjambonneau38", "thpthp38")
+    gmail = Gmail.connect("bonjambonneau38", "")
 
     @info.each do |town|
       if !town["email"].empty? && !town["email"].nil?
